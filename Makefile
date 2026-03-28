@@ -1,14 +1,10 @@
-# Переменные для компилятора и флагов
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CC=gcc
+CFLAGS=-Wall -Wextra -std=c11
 
-# Цель по умолчанию (просто запускает сборку программы)
 all: myprogram
 
-# Правило сборки исполняемого файла
-myprogram: main.c
-	$(CC) $(CFLAGS) main.c -o myprogram
+myprogram: myprogram.c
+	$(CC) $(CFLAGS) myprogram.c -o myprogram
 
-# Правило для очистки проекта от временных файлов и результатов тестов
 clean:
-	rm -f myprogram fileA fileB fileC fileD fileA.gz fileB.gz result.txt
+	rm -f myprogram A B C D *.gz result.txt

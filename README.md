@@ -25,14 +25,19 @@ cd unix2026_selin_task_1
 make
 ```
 
-3. Выдаём права runme на исполнение create_A
+3. Выдаём права runme на исполнение create_test_file_A
 ```bush
-chmod +x runme.sh create_A.sh
+chmod +x runme.sh create_test_file_A.sh
 ```
 
 4. Запускаем скрипт
 ```bush
 ./runme.sh
+```
+
+5. Посмотреть отчёт
+```bush
+cat result.txt
 ```
 
 ## Лог успешных запусков

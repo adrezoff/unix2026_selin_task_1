@@ -1,37 +1,30 @@
 #!/bin/bash
 
-cd "$(dirname "$0")"
+make > /dev/null
 
-echo "--- Работаем в директории: $(pwd) ---"
+echo "=== BEGIN STEPS ===" > result.txt
 
-make clean
-make
+bash create_test_file_A.sh
 
-REPORT="result.txt"
-echo "--- Отчет о тестировании (Дата: $(date)) ---" > "$REPORT"
+echo "Copy A -> B (sparse)" >> result.txt
+./myprogram A B
 
-chmod +x create_A.sh
-./create_A.sh
-echo "1. Создан файл A" >> "$REPORT"
+echo "gzip A and B" >> result.txt
+gzip -c A > A.gz
+gzip -c B > B.gz
 
-./myprogram fileA fileB
-echo "2. Файл A скопирован в B (sparse)" >> "$REPORT"
+echo "Restore B.gz -> C through program" >> result.txt
+gzip -cd B.gz | ./myprogram C
 
-gzip -f -k fileA
-gzip -f -k fileB
-echo "3. Файлы сжаты gzip" >> "$REPORT"
+echo "Copy A -> D with block 100" >> result.txt
+./myprogram -b 100 A D
 
-gzip -cd fileB.gz | ./myprogram fileC
-echo "4. B.gz распакован в C через программу" >> "$REPORT"
+echo "" >> result.txt
+echo "=== STAT RESULTS ===" >> result.txt
 
-./myprogram -b 100 fileA fileD
-echo "5. A скопирован в D (блок 100)" >> "$REPORT"
-
-echo -e "\n--- Результаты stat ---" >> "$REPORT"
-for f in fileA fileA.gz fileB fileB.gz fileC fileD; do
-    if [ -f "$f" ]; then
-        echo "Файл: $f" >> "$REPORT"
-        stat "$f" >> "$REPORT"
-        echo "----------------" >> "$REPORT"
-    fi
-done
+stat A >> result.txt
+stat A.gz >> result.txt
+stat B >> result.txt
+stat B.gz >> result.txt
+stat C >> result.txt
+stat D >> result.txt
