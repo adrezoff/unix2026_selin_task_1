@@ -42,3 +42,4 @@ cat result.txt
 
 ## Лог успешных запусков
 - `Darwin MacBook-Air-Selin.local 22.6.0 Darwin Kernel Version 22.6.0: Wed Jul  5 22:22:52 PDT 2023; root:xnu-8796.141.3~6/RELEASE_ARM64_T8103 arm64`
+- `Linux Ubuntu 6.17.0-14-generic #14-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan  9 16:29:17 UTC 2026 aarch64 GNU/Linux`
